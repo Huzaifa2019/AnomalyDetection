@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import './upload.dart';
 import './about.dart';
+// import './result.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -66,29 +67,32 @@ class _HomeState extends State<Home> {
               child: Column(
                 children: [
                   Container(
-                    child: (MediaQuery.of(context).orientation == Orientation.portrait)
+                    child: (MediaQuery.of(context).orientation ==
+                            Orientation.portrait)
                         ? Text(
-                      "Welcome to the real time Surveillance Video Anomaly Detection",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        height: 1.5,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      textAlign: TextAlign.center,
-                    ):Text(
-                      "Welcome to the real time Surveillance Video Anomaly Detection",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 19,
-                        height: 1.2,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
+                            "Welcome to the real time Surveillance Video Anomaly Detection",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                              height: 1.5,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            textAlign: TextAlign.center,
+                          )
+                        : Text(
+                            "Welcome to the real time Surveillance Video Anomaly Detection",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 19,
+                              height: 1.2,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
                   ),
                   Container(
-                    height: (MediaQuery.of(context).orientation == Orientation.portrait)
+                    height: (MediaQuery.of(context).orientation ==
+                            Orientation.portrait)
                         ? size.height * 0.07
                         : size.height * 0.05,
                   ),
@@ -125,8 +129,10 @@ class _HomeState extends State<Home> {
                           "GET STARTED",
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: (MediaQuery.of(context).orientation == Orientation.portrait)
-                                ? 18:16,
+                            fontSize: (MediaQuery.of(context).orientation ==
+                                    Orientation.portrait)
+                                ? 18
+                                : 16,
                             fontWeight: FontWeight.bold,
                           ),
                           textAlign: TextAlign.center,
@@ -172,8 +178,10 @@ class _HomeState extends State<Home> {
                           "ABOUT US",
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: (MediaQuery.of(context).orientation == Orientation.portrait)
-                                ? 18:16,
+                            fontSize: (MediaQuery.of(context).orientation ==
+                                    Orientation.portrait)
+                                ? 18
+                                : 16,
                             fontWeight: FontWeight.bold,
                           ),
                           textAlign: TextAlign.center,
