@@ -112,7 +112,7 @@ class _HomeState extends State<Home> {
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(50),
                         border: Border.all(
-                          color: Colors.white,
+                          color: Colors.blue,
                           width: 1,
                         ),
                       ),
@@ -120,7 +120,7 @@ class _HomeState extends State<Home> {
                         horizontal: 20,
                       ),
                       child: Container(
-                        color: Colors.blue,
+                        color: Colors.white,
                         padding: EdgeInsets.symmetric(
                           vertical: 10,
                           horizontal: 0,
@@ -128,7 +128,7 @@ class _HomeState extends State<Home> {
                         child: Text(
                           "GET STARTED",
                           style: TextStyle(
-                            color: Colors.white,
+                            color: Colors.blue,
                             fontSize: (MediaQuery.of(context).orientation ==
                                     Orientation.portrait)
                                 ? 18
@@ -161,7 +161,7 @@ class _HomeState extends State<Home> {
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(50),
                         border: Border.all(
-                          color: Colors.white,
+                          color: Colors.blue,
                           width: 1,
                         ),
                       ),
@@ -169,7 +169,7 @@ class _HomeState extends State<Home> {
                         horizontal: 15,
                       ),
                       child: Container(
-                        color: Colors.blue,
+                        color: Colors.white,
                         padding: EdgeInsets.symmetric(
                           vertical: 10,
                           horizontal: 10,
@@ -177,7 +177,7 @@ class _HomeState extends State<Home> {
                         child: Text(
                           "ABOUT US",
                           style: TextStyle(
-                            color: Colors.white,
+                            color: Colors.blue,
                             fontSize: (MediaQuery.of(context).orientation ==
                                     Orientation.portrait)
                                 ? 18

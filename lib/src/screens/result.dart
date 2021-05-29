@@ -120,7 +120,7 @@ class _ResultState extends State<Result> {
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(50),
                     border: Border.all(
-                      color: Colors.white,
+                      color: Colors.blue,
                       width: 1,
                     ),
                   ),
@@ -128,7 +128,7 @@ class _ResultState extends State<Result> {
                     horizontal: 20,
                   ),
                   child: Container(
-                    color: Colors.blue,
+                    color: Colors.white,
                     padding: EdgeInsets.symmetric(
                       vertical: 10,
                       horizontal: 0,
@@ -136,7 +136,7 @@ class _ResultState extends State<Result> {
                     child: Text(
                       "BACK",
                       style: TextStyle(
-                        color: Colors.white,
+                        color: Colors.blue,
                         fontSize: (MediaQuery.of(context).orientation ==
                                 Orientation.portrait)
                             ? 18

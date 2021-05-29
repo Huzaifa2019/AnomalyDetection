@@ -1,4 +1,5 @@
 import 'dart:async';
+// import 'dart:html';
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +18,8 @@ class Upload extends StatefulWidget {
 class _UploadState extends State<Upload> {
   File _video;
   final picker = ImagePicker();
-  int uploaded;
+  int uploaded = 0;
+  bool generatingResult = false;
   VideoPlayerController _videoPlayerController;
 
   Future<String> uploadImage(filename, url) async {
@@ -27,26 +29,26 @@ class _UploadState extends State<Upload> {
     return res.reasonPhrase;
   }
 
-  void getResult(bool anomaly){
-    Timer(const Duration(seconds: 1), () {
+  void getResult(bool anomaly) {
+    Timer(const Duration(seconds: 2), () {
       (!anomaly)
           ? Navigator.push(
-        context,
-        // No Anomaly Detected
-        MaterialPageRoute(builder: (context) => Result(false)),
-      )
+              context,
+              // No Anomaly Detected
+              MaterialPageRoute(builder: (context) => Result(false)),
+            )
           : Navigator.push(
-        context,
-        // Anomaly Detected
-        MaterialPageRoute(builder: (context) => Result(true)),
-      );
+              context,
+              // Anomaly Detected
+              MaterialPageRoute(builder: (context) => Result(true)),
+            );
     });
   }
 
   Future getVideo() async {
     var dio = Dio();
     Response response;
-    bool anomaly = true;
+    bool anomaly = false;
 
     setState(() {
       _video = null;
@@ -71,25 +73,31 @@ class _UploadState extends State<Upload> {
       });
     }
     // print(_video.path);
-    // print(pickedFile.path);
-
+    // print((_video.path).toString());
+    print(pickedFile.path.split('/').last);
 
     var formData = FormData.fromMap({
-      'fileName': (pickedFile.path.split('/').last).toString(),
+      'fileName': (pickedFile.path.split('/').last),
       'multipartFile': await MultipartFile.fromFile(_video.path,
           filename: pickedFile.path.split('/').last)
     });
     print((pickedFile.path.split('/').last).toString());
     try {
       response = await dio.post(
-          'http://82cb192a1c95.ngrok.io/AnomalyDetection/get/media',
+          'http://192.168.8.127:8080/AnomalyDetection/get/media',
           data: formData);
       print("Response");
       if (response.statusCode == 200) {
         setState(() {
           uploaded = 1;
+          generatingResult = true;
           print(response.statusCode);
-          print(response.data);
+          print(response.data["data"]);
+          if (response.data["data"] == "1") {
+            anomaly = true;
+          } else {
+            anomaly = false;
+          }
           getResult(anomaly);
         });
       } else {
@@ -102,7 +110,9 @@ class _UploadState extends State<Upload> {
     } on Exception catch (_) {
       setState(() {
         uploaded = 3;
-        getResult(anomaly);
+        print("EXCEPTION");
+        // generatingResult = true;
+        // getResult(anomaly);
       });
     }
   }
@@ -148,7 +158,7 @@ class _UploadState extends State<Upload> {
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(50),
                     border: Border.all(
-                      color: Colors.white,
+                      color: Colors.blue,
                       width: 1,
                     ),
                   ),
@@ -156,7 +166,7 @@ class _UploadState extends State<Upload> {
                     horizontal: 20,
                   ),
                   child: Container(
-                    color: Colors.blue,
+                    color: Colors.white,
                     padding: EdgeInsets.symmetric(
                       vertical: 10,
                       horizontal: 0,
@@ -164,7 +174,7 @@ class _UploadState extends State<Upload> {
                     child: Text(
                       "UPLOAD VIDEO",
                       style: TextStyle(
-                        color: Colors.white,
+                        color: Colors.blue,
                         fontSize: (MediaQuery.of(context).orientation ==
                                 Orientation.portrait)
                             ? 18
@@ -194,7 +204,7 @@ class _UploadState extends State<Upload> {
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(50),
                     border: Border.all(
-                      color: Colors.white,
+                      color: Colors.blue,
                       width: 1,
                     ),
                   ),
@@ -202,7 +212,7 @@ class _UploadState extends State<Upload> {
                     horizontal: 20,
                   ),
                   child: Container(
-                    color: Colors.blue,
+                    color: Colors.white,
                     padding: EdgeInsets.symmetric(
                       vertical: 10,
                       horizontal: 0,
@@ -210,7 +220,7 @@ class _UploadState extends State<Upload> {
                     child: Text(
                       "BACK",
                       style: TextStyle(
-                        color: Colors.white,
+                        color: Colors.blue,
                         fontSize: (MediaQuery.of(context).orientation ==
                                 Orientation.portrait)
                             ? 18
@@ -339,6 +349,35 @@ class _UploadState extends State<Upload> {
                                         ),
                                 )
                               : Container(),
+              Padding(
+                padding: EdgeInsets.only(top: 10),
+              ),
+              (generatingResult)
+                  ? Container(
+                      child: (MediaQuery.of(context).orientation ==
+                              Orientation.portrait)
+                          ? Text(
+                              "Generating Result...",
+                              style: TextStyle(
+                                color: Colors.green,
+                                fontSize: 20,
+                                height: 1.5,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              textAlign: TextAlign.center,
+                            )
+                          : Text(
+                              "Generating Result...",
+                              style: TextStyle(
+                                color: Colors.green,
+                                fontSize: 19,
+                                height: 1.2,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                    )
+                  : Container(),
               Container(
                 height: size.height * 0.05,
               ),
